@@ -1,0 +1,112 @@
+{
+  "name": "battlepass-app",
+  "description": "a monorepo for battlepass apps",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "setup": "yarn && wsrun -s -c install",
+    "reset": "rm -rf node_modules apps/**/node_modules packages/**/node_modules apps/**/.next packages/**/.next",
+    "sb": "wsrun -p @gamedao/components -c storybook",
+    "dev": "yarn dev:battlepass",
+    "dev:battlepass": "wsrun -p @gamedao/battlepass -c dev",
+    "build:all": "wsrun -e -c -s -x -m build",
+    "build:init": "wsrun -s -c install",
+    "build:battlepass": "yarn build:init && yarn workspace @gamedao/battlepass build",
+    "test": "wsrun -e -c -s --exclude-missing test",
+    "format": "prettier --parser babel-ts --write --check '{apps,packages}/**/*.{ts,tsx,graphql}'",
+    "format:graphql": "prettier --parser babel-ts --check '{apps,packages}/**/*.graphql'",
+    "format:verify": "prettier --parser babel-ts --check '{apps,packages}/**/*.{ts,tsx}'",
+    "format:staged": "pretty-quick --staged --pattern '*.{js,jsx,ts,tsx,graphql}'",
+    "lint": "yarn lint:app",
+    "lint:app": "yarn eslint 'apps/**/src'",
+    "release": "yarn build && yarn changeset publish",
+    "release:stage": "git checkout dev && git pull && git checkout stage && git pull && git merge dev && git push",
+    "commit": "git-cz"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.23.2",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/cz-commitlint": "^17.4.4",
+    "@picgo/bump-version": "^1.0.3",
+    "@typescript-eslint/utils": "^5.55.0",
+    "commitizen": "^4.3.0",
+    "conventional-changelog": "^3.1.24",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
+    "eslint": "^8.36.0",
+    "eslint-plugin-graphql": "^4.0.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-storybook": "^0.6.11",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.3",
+    "prettier-eslint": "^16.3.0",
+    "pretty-quick": "^3.1.3",
+    "rimraf": "^5.0.5",
+    "wsrun": "^5.2.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "echo yarn format:staged"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "eslintConfig": {
+    "rules": {
+      "@next/next/no-img-element": "off"
+    }
+  },
+  "resolutions": {
+    "@polkadot/api": "^10.11.1",
+    "@polkadot/api-augment": "^10.11.1",
+    "@polkadot/api-base": "^10.11.1",
+    "@polkadot/api-contract": "^10.11.1",
+    "@polkadot/api-derive": "^10.11.1",
+    "@polkadot/hw-ledger": "^12.6.1",
+    "@polkadot/keyring": "^12.6.1",
+    "@polkadot/networks": "^12.6.1",
+    "@polkadot/phishing": "^0.22.1",
+    "@polkadot/rpc-augment": "^10.11.1",
+    "@polkadot/rpc-core": "^10.11.1",
+    "@polkadot/rpc-provider": "^10.11.1",
+    "@polkadot/types": "^10.11.1",
+    "@polkadot/types-augment": "^10.11.1",
+    "@polkadot/types-codec": "^10.11.1",
+    "@polkadot/types-create": "^10.11.1",
+    "@polkadot/types-known": "^10.11.1",
+    "@polkadot/types-support": "^10.11.1",
+    "@polkadot/util": "^12.6.1",
+    "@polkadot/util-crypto": "^12.6.1",
+    "@polkadot/wasm-crypto": "^7.3.1",
+    "@polkadot/x-bigint": "^12.6.1",
+    "@polkadot/x-fetch": "^12.6.1",
+    "@polkadot/x-global": "^12.6.1",
+    "@polkadot/x-randomvalues": "^12.6.1",
+    "@polkadot/x-textdecoder": "^12.6.1",
+    "@polkadot/x-textencoder": "^12.6.1",
+    "@polkadot/x-ws": "^12.6.1",
+    "typescript": "^5.2.2"
+  }
+}

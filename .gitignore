@@ -1,0 +1,49 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/
+yarn.lock
+
+**/dist/
+**/node_modules/
+**/.next/
+**/.idea/
+**/.yarn/
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+pkg/app/schema.graphql
+pkg/app/src/queries/index.ts
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+.vscode
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env.*
+*.local
+
+# vercel
+.vercel
+
+**/sitemap.xml
+.vscode/settings.json
+.trunk
+
+.yarnrc

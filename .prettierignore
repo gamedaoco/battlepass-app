@@ -1,0 +1,5 @@
+.next
+build
+dist
+archive
+node_modules
